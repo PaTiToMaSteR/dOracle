@@ -3,10 +3,10 @@ require("dotenv").config();
 const axios = require('axios');
 
 import
-	{
-		updateRequest,
-		newRequest
-	} from "./ethereum";
+{
+	updateRequest,
+	newRequest
+} from "./ethereum";
 
 const start = () =>
 {
@@ -21,6 +21,7 @@ const start = () =>
 
 const resolvePath = (path, obj) =>
 {
+	console.log("resolvePath"/*, path, obj*/);
 	return path.split('.').reduce(function (prev, curr)
 	{
 		return prev ? prev[curr] : null
@@ -29,6 +30,7 @@ const resolvePath = (path, obj) =>
 
 const parseData = result => (res) =>
 {
+	console.log("parseData"/*, res*/);
 	return new Promise((resolve, reject) =>
 	{
 		let id, valueRetrieved;
