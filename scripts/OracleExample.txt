@@ -1,35 +1,3 @@
-Done in REMIX:
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.0;
-
-import "https://raw.githubusercontent.com/PaTiToMaSteR/dOracle/main/on-chain-oracle/contracts/Oracle.sol";
-// debug: activate module hardhat provider
-import "hardhat/console.sol";
-
-contract OracleExample is Oracle {
-
-    string public EURUSD;
-
-    function updatePrice() public payable {
-        /*
-        if (oraclize_getPrice("URL") > this.balance) {
-            //Handle out of funds error
-        } else {
-            oraclize_query("URL", "json(http://api.fixer.io/latest?symbols=USD).rates.USD");
-        }
-        */
-        createRequest("https://api.coingecko.com/api/v3/simple/price?ids=dopple-finance&vs_currencies=usd", "dopple-finance.usd");
-        
-    }
-    
-    function __callback(bytes32 myid, string memory result) public {
-        console.logBytes32(myid);
-        console.log("result", result);
-        //require(msg.sender == 0x0C2814Bd9E0F3cb1Ae5259bd640666A4D81d726a);
-        EURUSD = result;
-        console.log("EURUSD", EURUSD);
-    }
-}
 
 
 URL to request:
