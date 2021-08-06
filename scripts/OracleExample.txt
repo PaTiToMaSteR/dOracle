@@ -1,0 +1,55 @@
+Done in REMIX:
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.0;
+
+import "https://raw.githubusercontent.com/PaTiToMaSteR/dOracle/main/on-chain-oracle/contracts/Oracle.sol";
+// debug: activate module hardhat provider
+import "hardhat/console.sol";
+
+contract OracleExample is Oracle {
+
+    string public EURUSD;
+
+    function updatePrice() public payable {
+        /*
+        if (oraclize_getPrice("URL") > this.balance) {
+            //Handle out of funds error
+        } else {
+            oraclize_query("URL", "json(http://api.fixer.io/latest?symbols=USD).rates.USD");
+        }
+        */
+        createRequest("https://api.coingecko.com/api/v3/simple/price?ids=dopple-finance&vs_currencies=usd", "dopple-finance.usd");
+        
+    }
+    
+    function __callback(bytes32 myid, string memory result) public {
+        console.logBytes32(myid);
+        console.log("result", result);
+        //require(msg.sender == 0x0C2814Bd9E0F3cb1Ae5259bd640666A4D81d726a);
+        EURUSD = result;
+        console.log("EURUSD", EURUSD);
+    }
+}
+
+
+URL to request:
+https://api.coingecko.com/api/v3/simple/price?ids=dopple-finance&vs_currencies=usd
+dopple-finance.usd
+
+
+
+Oracle.sol contract address: 
+
+0x0C2814Bd9E0F3cb1Ae5259bd640666A4D81d726a
+
+ABI:
+[{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"id","type":"uint256"},{"indexed":false,"internalType":"string","name":"urlToQuery","type":"string"},{"indexed":false,"internalType":"string","name":"attributeToFetch","type":"string"}],"name":"NewRequest","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"id","type":"uint256"},{"indexed":false,"internalType":"string","name":"urlToQuery","type":"string"},{"indexed":false,"internalType":"string","name":"attributeToFetch","type":"string"},{"indexed":false,"internalType":"string","name":"agreedValue","type":"string"}],"name":"UpdatedRequest","type":"event"},{"inputs":[{"internalType":"address","name":"_oracle","type":"address"}],"name":"addOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"_urlToQuery","type":"string"},{"internalType":"string","name":"_attributeToFetch","type":"string"}],"name":"createRequest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"currentId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"name":"currentResult","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_urlToQuery","type":"string"},{"internalType":"string","name":"_attributeToFetch","type":"string"}],"name":"getValue","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isOracle","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxRequests","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minQuorum","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"oracles","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_oracle","type":"address"}],"name":"removeOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_maxRequests","type":"uint256"}],"name":"setMaxRequests","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_minQuorum","type":"uint256"}],"name":"setMinQuorum","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"totalOracleCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"string","name":"_valueRetrieved","type":"string"}],"name":"updateRequest","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+
+
+
+0x2BF55e274F5a9e85DfDa812B26154Bf12D811049
+
+ABI:
+[{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"id","type":"uint256"},{"indexed":false,"internalType":"string","name":"urlToQuery","type":"string"},{"indexed":false,"internalType":"string","name":"attributeToFetch","type":"string"}],"name":"NewRequest","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"id","type":"uint256"},{"indexed":false,"internalType":"string","name":"urlToQuery","type":"string"},{"indexed":false,"internalType":"string","name":"attributeToFetch","type":"string"},{"indexed":false,"internalType":"string","name":"agreedValue","type":"string"}],"name":"UpdatedRequest","type":"event"},{"inputs":[{"internalType":"address","name":"_oracle","type":"address"}],"name":"addOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"_urlToQuery","type":"string"},{"internalType":"string","name":"_attributeToFetch","type":"string"}],"name":"createRequest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_oracle","type":"address"}],"name":"removeOracle","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_maxRequests","type":"uint256"}],"name":"setMaxRequests","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_minQuorum","type":"uint256"}],"name":"setMinQuorum","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"string","name":"_valueRetrieved","type":"string"}],"name":"updateRequest","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"currentId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"}],"name":"currentResult","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_urlToQuery","type":"string"},{"internalType":"string","name":"_attributeToFetch","type":"string"}],"name":"getValue","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isOracle","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxRequests","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minQuorum","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"oracles","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalOracleCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
+
+
