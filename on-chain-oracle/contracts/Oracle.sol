@@ -1,4 +1,5 @@
-pragma solidity >=0.6.6 <0.7.0;
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -8,7 +9,10 @@ contract Oracle is Ownable {
     uint256 public currentId = 0; //increasing request id
     uint256 public minQuorum = 1; //minimum number of responses to receive before declaring final result
 
-    Request[] public requests; //list of requests made to the contract
+    //Request[] public requests; //list of requests made to the contract
+    // >=v0.7.0
+    uint numRequests;
+    mapping (uint => Request) requests;
     address[] public oracles;
 
     mapping(address => bool) public isOracle;
@@ -73,25 +77,17 @@ contract Oracle is Ownable {
         return currentResult[_urlToQuery][_attributeToFetch];
     }
 
+
     function createRequest(
         string memory _urlToQuery,
         string memory _attributeToFetch
     ) public {
-        if (currentId == requests.length) {
-            requests.push(
-                Request(currentId, _urlToQuery, _attributeToFetch, "")
-            );
-        } else {
-            requests[currentId] = Request(
-                currentId,
-                _urlToQuery,
-                _attributeToFetch,
-                ""
-            );
-        }
-
-        Request storage r = requests[currentId];
-
+        Request storage r = requests[numRequests++];
+        r.id = currentId;
+        r.urlToQuery = _urlToQuery;
+        r.attributeToFetch = _attributeToFetch;
+        r.agreedValue = "";
+        
         // oracles address
         for (uint256 i = 0; i < oracles.length; i++) {
             r.quorum[oracles[i]] = false;
