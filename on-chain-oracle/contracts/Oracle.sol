@@ -30,7 +30,10 @@ contract Oracle is Ownable {
 
     //event that triggers oracle outside of the blockchain
     event NewRequest(uint256 id, string urlToQuery, string attributeToFetch);
-
+    event UpdateRequest(uint256 _id, string _valueRetrieved);
+    event OracleInTrustedList(address _addr);
+    event DetectedFreeSlot(uint256 tmpItmpI);
+    
     //triggered when there's a consensus on the final result
     event UpdatedRequest(
         uint256 id,
@@ -102,11 +105,15 @@ contract Oracle is Ownable {
 
     //called by the oracle to record its answer
     function updateRequest(uint256 _id, string memory _valueRetrieved) public {
+        require(oracles.length > 0, "No oracles");
+        
         Request storage currRequest = requests[_id];
-
+        emit UpdateRequest(_id, _valueRetrieved);
+        
         //check if oracle is in the list of trusted oracles
         //and if the oracle hasn't voted yet
         if (!currRequest.quorum[address(msg.sender)]) {
+            emit OracleInTrustedList(address(msg.sender));
             //marking that this address has voted
             currRequest.quorum[msg.sender] = true;
 
@@ -118,6 +125,8 @@ contract Oracle is Ownable {
                 if (bytes(currRequest.anwers[tmpI]).length == 0) {
                     found = true;
                     currRequest.anwers[tmpI] = _valueRetrieved;
+                    
+                    emit DetectedFreeSlot(tmpI);
                 }
                 tmpI++;
             }
@@ -126,6 +135,7 @@ contract Oracle is Ownable {
 
             //iterate through oracle list and check if enough oracles(minimum quorum)
             //have voted the same answer has the current one
+            
             for (uint256 i = 0; i < oracles.length; i++) {
                 bytes memory a = bytes(currRequest.anwers[i]);
                 bytes memory b = bytes(_valueRetrieved);
