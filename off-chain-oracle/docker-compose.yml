@@ -1,0 +1,13 @@
+version: '2'
+services:
+  oracle:
+    build: .
+    command: bash -c "npm run build && npm run start"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file: ./.env
+    environment:
+      - URL_TO_QUERY=${URL_TO_QUERY}
+      - ATTRIBUTE_TO_FETCH=${ATTRIBUTE_TO_FETCH}
+      - ACCOUNT_NUMBER=${ACCOUNT_NUMBER}

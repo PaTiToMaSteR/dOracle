@@ -1,0 +1,2 @@
+https://api.coingecko.com/api/v3/simple/price?ids=dopple-finance&vs_currencies=usd dopple-finance.usd
+https://api.coingecko.com/api/v3/simple/price?ids=warden&vs_currencies=usd warden.usd

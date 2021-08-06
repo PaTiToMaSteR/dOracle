@@ -1,0 +1,29 @@
+{
+  "name": "weather-oracle",
+  "version": "1.0.0",
+  "description": "Weather Oracle Auditer",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam Gall",
+  "license": "ISC",
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.0",
+    "@nomiclabs/hardhat-truffle5": "^2.0.0",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "@truffle/hdwallet-provider": "^1.4.2",
+    "chai": "^4.3.4",
+    "dotenv": "^10.0.0",
+    "ethereum-waffle": "^3.3.0",
+    "hardhat": "^2.2.1"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^3.4.1",
+    "web3": "^1.5.0"
+  }
+}
