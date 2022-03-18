@@ -1,29 +1,33 @@
 {
-	"name": "weather-oracle",
-	"version": "1.0.0",
-	"description": "Weather Oracle Auditer",
-	"main": "truffle.js",
-	"directories": {
-		"test": "test"
-	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "Adam Gall",
-	"license": "ISC",
-	"dependencies": {
-		"@nomiclabs/hardhat-ethers": "^2.0.0",
-		"@nomiclabs/hardhat-truffle5": "^2.0.0",
-		"@nomiclabs/hardhat-waffle": "^2.0.1",
-		"@nomiclabs/hardhat-web3": "^2.0.0",
-		"@truffle/hdwallet-provider": "^1.4.2",
-		"chai": "^4.3.4",
-		"dotenv": "^10.0.0",
-		"ethereum-waffle": "^3.3.0",
-		"hardhat": "^2.2.1"
-	},
-	"devDependencies": {
-		"@openzeppelin/contracts": "^4.2.0",
-		"web3": "^1.5.0"
-	}
+    "name": "weather-oracle",
+    "version": "1.0.0",
+    "description": "Weather Oracle Auditer",
+    "main": "truffle.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "truffle-migrate": "truffle migrate --network local --reset",
+        "test-oracle": "truffle exec scripts/test_dop_price.js --network local"
+    },
+    "author": "Adam Gall",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.15.5",
+        "@openzeppelin/contracts": "^4.4.1",
+        "@openzeppelin/test-helpers": "^0.5.15",
+        "@openzeppelin/truffle-upgrades": "^1.10.0",
+        "@truffle/abi-utils": "^0.2.4",
+        "@truffle/hdwallet-provider": "^1.5.0",
+        "dotenv": "^10.0.0",
+        "ganache-cli": "^6.12.2",
+        "prettier": "^2.3.0",
+        "prettier-plugin-solidity": "^1.0.0-beta.16",
+        "solc": "^0.8.7-fixed",
+        "solhint": "^3.3.6",
+        "solidity-coverage": "^0.7.17",
+        "solium": "^1.2.5",
+        "truffle": "^5.4.16",
+        "truffle-flattener": "^1.5.0"
+    }
 }
